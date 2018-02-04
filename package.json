@@ -4,5 +4,8 @@
   "description": "Discord Bot to find build for hots heroes.",
   "main": "bot.js",
   "author": "KooPa",
-  "dependencies": {}
+  "dependencies": {
+    "discord.io": "^2.5.3",
+    "winston": "^2.4.0"
+  }
 }
