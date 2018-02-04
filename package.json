@@ -1,0 +1,8 @@
+{
+  "name": "hots-bot",
+  "version": "1.0.0",
+  "description": "Discord Bot to find build for hots heroes.",
+  "main": "bot.js",
+  "author": "KooPa",
+  "dependencies": {}
+}
