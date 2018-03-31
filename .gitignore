@@ -1,1 +1,4 @@
 .idea/
+.bundle/
+Gemfile.lock
+vendor/
