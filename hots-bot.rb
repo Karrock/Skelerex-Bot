@@ -1,10 +1,13 @@
 # This bot has various commands that show off CommandBot.
 
+require 'rubygems'
 require 'discordrb'
+
+# Bundler.require
 
 # Here we instantiate a `CommandBot` instead of a regular `Bot`, which has the functionality to add commands using the
 # `command` method. We have to set a `prefix` here, which will be the character that triggers command execution.
-bot = Discordrb::Commands::CommandBot.new token: 'NDA5ODIwODcyODA3ODA5MDM0.DWOUOg.mgGd-0fJLxEcwIbc-MTwX-YFlw0', prefix: '?'
+bot = Discordrb::Commands::CommandBot.new token: 'NDA5ODIwODcyODA3ODA5MDM0.DWOUOg.mgGd-0fJLxEcwIbc-MTwX-YFlw0', prefix: '~'
 
 bot.command :user do |event|
   # Commands send whatever is returned from the block to the channel. This allows for compact commands like this,

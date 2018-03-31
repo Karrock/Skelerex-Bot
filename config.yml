@@ -1,0 +1,21 @@
+:cosgrove:
+  :token:
+  :client_id:
+  :secure: set this
+  :upvote_weight: upvote_rules
+  :upvote_rules:
+    :channels:
+      :default:
+        :upvote_weight: 50.00 %
+      :general_text:
+        :channel_id: general
+        :upvote_weight: 100.00 %
+:chain:
+  :steem_account:
+  :steem_posting_wif:
+  :golos_account:
+  :golos_posting_wif:
+  :steem_api_url: https://steemd.steemit.com
+  :golos_api_url: https://ws.golos.io
+:discord:
+  :log_mode: info
