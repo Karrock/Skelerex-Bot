@@ -2,6 +2,7 @@
 
 require 'rubygems'
 require 'discordrb'
+require 'open-uri'
 
 # Bundler.require
 
@@ -10,19 +11,7 @@ require 'discordrb'
 bot = Discordrb::Commands::CommandBot.new token: 'NDA5ODIwODcyODA3ODA5MDM0.DWOUOg.mgGd-0fJLxEcwIbc-MTwX-YFlw0', prefix: '~'
 
 bot.command :user do |event|
-  # Commands send whatever is returned from the block to the channel. This allows for compact commands like this,
-  # but you have to be aware of this so you don't accidentally return something you didn't intend to.
-  # To prevent the return value to be sent to the channel, you can just return `nil`.
   event.user.name
-end
-
-bot.command :bold do |_event, *args|
-  # Again, the return value of the block is sent to the channel
-  "**#{args.join(' ')}**"
-end
-
-bot.command :italic do |_event, *args|
-  "*#{args.join(' ')}*"
 end
 
 bot.command(:invite, chain_usable: false) do |event|
@@ -43,13 +32,19 @@ bot.command(:random, min_args: 0, max_args: 2, description: 'Generates a random 
   end
 end
 
+bot.command :heroes do |_event, *args|
+  # First Get Parameter after command
+  # Look to url : https://www.icy-veins.com/heroes/{args}-build-guide
+  # return all builds with titles
+  # "https://www.icy-veins.com/heroes/#{args.join(' ')}-build-guide"
+  "https://www.icy-veins.com/heroes/#{args.join(' ')}-build-guide"
+end
+
 bot.command :long do |event|
   event << 'This is a long message.'
   event << 'It has multiple lines that are each sent by doing `event << line`.'
   event << 'This is an easy way to do such long messages, or to create lines that should only be sent conditionally.'
   event << 'Anyway, have a nice day.'
-
-  # Here we don't have to worry about the return value because the `event << line` statement automatically returns nil.
 end
 
 bot.run
