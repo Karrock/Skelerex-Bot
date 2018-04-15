@@ -42,14 +42,22 @@ bot.command :heroes do |_event, *args|
   # Look to url : https://www.icy-veins.com/heroes/{args}-build-guide
   # return all builds with titles
   # "https://www.icy-veins.com/heroes/#{args.join(' ')}-build-guide"
-  "https://www.icy-veins.com/heroes/#{args.join(' ')}-build-guide"
+
+  if args === 'heroes'
+    "https://www.icy-veins.com/heroes/#{args.join(' ')}-build-guide"
+  else
+    "https://www.icy-veins.com/heroes/"
+  end
+
+
 end
 
-bot.command :long do |event|
-  event << 'This is a long message.'
-  event << 'It has multiple lines that are each sent by doing `event << line`.'
-  event << 'This is an easy way to do such long messages, or to create lines that should only be sent conditionally.'
-  event << 'Anyway, have a nice day.'
-end
+# Keep it as example
+# bot.command :long do |event|
+#   event << 'This is a long message.'
+#   event << 'It has multiple lines that are each sent by doing `event << line`.'
+#   event << 'This is an easy way to do such long messages, or to create lines that should only be sent conditionally.'
+#   event << 'Anyway, have a nice day.'
+# end
 
 bot.run
