@@ -1,13 +1,12 @@
 # This bot has various commands that show off CommandBot.
 
+require 'bundler/setup'
 require 'rubygems'
 require 'discordrb'
 require 'open-uri'
 require 'dotenv'
 
 Dotenv.load
-
-# Bundler.require
 
 bot_token  = ENV['bot_token']
 
