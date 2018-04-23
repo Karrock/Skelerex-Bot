@@ -5,6 +5,7 @@ require 'rubygems'
 require 'discordrb'
 require 'open-uri'
 require 'dotenv'
+require 'nokogiri'
 
 Dotenv.load
 
@@ -40,17 +41,19 @@ bot.command(:heroes, heroes: 1) do |_event, heroes|
   icy_base = "https://www.icy-veins.com/heroes"
   icy_veins = "https://www.icy-veins.com/heroes/#{heroes}-build-guide"
 
-  # First Get Parameter after command
-  # Look to url : https://www.icy-veins.com/heroes/{args}-build-guide
-  # return all builds with titles
-  # "https://www.icy-veins.com/heroes/#{args.join(' ')}-build-guide"
-
   if heroes
-    icy_veins
+    html_data = open(icy_veins)
+
+    html_data
+    # icy_veins
+    document = Nokogiri::HTML(html_data)
+    elements = document.xpath("//div[@class='heroes_tldr_talents']")
+    elements.each do |element|
+      puts element.text
+    end
   else
     icy_base
   end
-
 
 end
 
