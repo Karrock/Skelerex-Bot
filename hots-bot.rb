@@ -36,19 +36,19 @@ bot.command(:random, min_args: 0, max_args: 2, description: 'Generates a random 
   end
 end
 
-bot.command :heroes do |_event, *args|
+bot.command(:heroes, heroes: 1) do |_event, heroes|
   icy_base = "https://www.icy-veins.com/heroes"
-  icy_veins = "https://www.icy-veins.com/heroes/#{args.join(' ')}-build-guide"
+  icy_veins = "https://www.icy-veins.com/heroes/#{heroes}-build-guide"
 
   # First Get Parameter after command
   # Look to url : https://www.icy-veins.com/heroes/{args}-build-guide
   # return all builds with titles
   # "https://www.icy-veins.com/heroes/#{args.join(' ')}-build-guide"
 
-  if !args
-    icy_base
-  else
+  if heroes
     icy_veins
+  else
+    icy_base
   end
 
 
