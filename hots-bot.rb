@@ -42,15 +42,16 @@ bot.command(:heroes, heroes: 1) do |_event, heroes|
   icy_veins = "https://www.icy-veins.com/heroes/#{heroes}-build-guide"
 
   if heroes
-    html_data = open(icy_veins)
-
-    html_data
-    # icy_veins
-    document = Nokogiri::HTML(html_data)
-    elements = document.xpath("//div[@class='heroes_tldr_talents']")
-    elements.each do |element|
-      puts element.text
-    end
+    icy_veins
+    # html_data = open(icy_veins)
+    #
+    # html_data
+    # # icy_veins
+    # document = Nokogiri::HTML(html_data)
+    # elements = document.xpath("//div[@class='heroes_tldr_talents']")
+    # elements.each do |element|
+    #   puts element.text
+    # end
   else
     icy_base
   end
