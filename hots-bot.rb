@@ -6,6 +6,7 @@ require 'discordrb'
 require 'open-uri'
 require 'dotenv'
 require 'nokogiri'
+require 'pp'
 
 Dotenv.load
 
@@ -42,12 +43,9 @@ bot.command(:heroes, heroes: 1) do |_event, heroes|
   icy_veins = "https://www.icy-veins.com/heroes/#{heroes}-build-guide"
 
   if heroes
-    document = Nokogiri::HTML(open(icy_veins))
-    elements = document.xpath("//div[@class='heroes_tldr_talents']")
-    # elements.each do |element|
-    #   puts element.text
-    # end
-    elements
+    pp icy_veins
+    page = Nokogiri::HTML(open(icy_veins))
+    talents = puts page.css("heroes_tldr_talents").image
   else
     icy_base
   end
