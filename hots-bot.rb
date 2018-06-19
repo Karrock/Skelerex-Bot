@@ -5,6 +5,8 @@ require 'rubygems'
 require 'discordrb'
 require 'open-uri'
 require 'dotenv'
+require 'nokogiri'
+require 'pp'
 
 Dotenv.load
 
@@ -36,21 +38,18 @@ bot.command(:random, min_args: 0, max_args: 2, description: 'Generates a random 
   end
 end
 
-bot.command(:heroes, heroes: 1) do |_event, heroes|
+bot.command(:icy, heroes: 1) do |_event, icy|
   icy_base = "https://www.icy-veins.com/heroes"
   icy_veins = "https://www.icy-veins.com/heroes/#{heroes}-build-guide"
 
-  # First Get Parameter after command
-  # Look to url : https://www.icy-veins.com/heroes/{args}-build-guide
-  # return all builds with titles
-  # "https://www.icy-veins.com/heroes/#{args.join(' ')}-build-guide"
-
-  if heroes
+  if icy
     icy_veins
+    page = Nokogiri::HTML(open(icy_veins))
+    talents = page.css('div.heroes_tldr_talents')[0]
+    pp talents
   else
     icy_base
   end
-
 
 end
 
