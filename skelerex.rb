@@ -6,8 +6,8 @@ require 'discordrb'
 require 'open-uri'
 require 'dotenv'
 require 'nokogiri'
-require 'restclient'
 require 'pp'
+require 'reverse_markdown'
 
 Dotenv.load
 
@@ -27,16 +27,19 @@ bot.command(:hots, hots: 1) do |event, hots|
     icy_guide = icy_base + "/#{hots}-build-guide"
     icy_talents = icy_base + "/#{hots}-talents"
 
-    ### Actually getting all src images of table
-    #@document = Nokogiri::HTML(open(icy_talents))
-    #img_src = @document.css('table.talent_table img').map{ |i| i['src'] } 
-    #pp img_src
+    #doc = Nokogiri::HTML(open(icy_talents))
+    #html = doc.css('table.talent_table').to_s
+    #html = html.gsub("[\r\n]", "")
+    #result = ReverseMarkdown.convert html
+
+    #pp result
 
     ### Resonse
     event << 'Hello ' + event.user.name + ' here is your build for '+ hots.upcase + ' have fun ;)'
     event << icy_guide
     ## Hidden link preview for talents web url
     event << 'And here is the talents page : ' + '<' + icy_talents + '>'
+    #event << result
 
     # TODO handle 404 error
     # 'Oops something went wrong maybe the given heroe : #{hots} is incorrect'
