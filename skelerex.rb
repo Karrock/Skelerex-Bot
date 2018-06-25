@@ -19,22 +19,24 @@ bot = Discordrb::Commands::CommandBot.new token: bot_token, prefix: '~'
 
 bot.command(:hots, hots: 1) do |event, hots|
   icy_base = "https://www.icy-veins.com/heroes"
+  img_urls = Array.new
+  img_captions = Array.new
 
   if hots
     hots = hots.downcase
     icy_guide = icy_base + "/#{hots}-build-guide"
     icy_talents = icy_base + "/#{hots}-talents"
 
-    file = open(icy_talents)
-    @document = Nokogiri::HTML.parse(file)
-    heroes_talents = @document.at_css('table.talent_table').children.attr("alt")
-    pp heroes_talents
+    ### Actually getting all src images of table
+    #@document = Nokogiri::HTML(open(icy_talents))
+    #img_src = @document.css('table.talent_table img').map{ |i| i['src'] } 
+    #pp img_src
 
     ### Resonse
     event << 'Hello ' + event.user.name + ' here is your build for '+ hots.upcase + ' have fun ;)'
     event << icy_guide
-    #event << heroes_talents
-     
+    ## Hidden link preview for talents web url
+    event << 'And here is the talents page : ' + '<' + icy_talents + '>'
 
     # TODO handle 404 error
     # 'Oops something went wrong maybe the given heroe : #{hots} is incorrect'
@@ -55,13 +57,13 @@ bot.command(:rick) do |event|
 
   voice_bot = event.voice
   #voice_bot.play_io('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
-  #voice_bot.play_file('/rickroll.mp3')
+  #voice_bot.play_file('sources/audio/rickroll.mp3')
   bot.voice_destroy(channel)
 
 end
 
 bot.command(:kick) do |event
-|  channel = event.user.voice_channel
+  |  channel = event.user.voice_channel
   if channel
     bot.voice_destroy
   end
