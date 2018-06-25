@@ -1,6 +1,9 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    climate_control (0.2.0)
+    cocaine (0.6.0)
+      terrapin (= 0.6.0)
     discordrb (3.2.1)
       discordrb-webhooks (~> 3.2.0.1)
       opus-ruby
@@ -32,6 +35,8 @@ GEM
       http-cookie (>= 1.0.2, < 2.0)
       mime-types (>= 1.16, < 4.0)
       netrc (~> 0.8)
+    terrapin (0.6.0)
+      climate_control (>= 0.0.3, < 1.0)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.7.5)
@@ -39,6 +44,8 @@ GEM
     websocket-client-simple (0.3.0)
       event_emitter
       websocket
+    youtube-dl.rb (0.3.1.2016.09.11.1)
+      cocaine (>= 0.5.4)
 
 PLATFORMS
   ruby
@@ -48,6 +55,8 @@ DEPENDENCIES
   dotenv
   nokogiri
   pkg-config
+  rest-client
+  youtube-dl.rb
 
 BUNDLED WITH
    1.16.2

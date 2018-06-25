@@ -7,6 +7,7 @@ source "https://rubygems.org"
 gem 'discordrb'
 gem 'pkg-config'
 gem 'nokogiri'
+gem 'rest-client'
 gem 'dotenv'
 
 # Specify your gem's dependencies in discordrb.gemspec
