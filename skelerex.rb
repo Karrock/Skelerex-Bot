@@ -9,13 +9,12 @@ require 'nokogiri'
 require 'rubocop'
 require 'pp'
 
+# instantiate the token in .env file
 Dotenv.load
-
 bot_token = ENV['bot_token']
 
 # Here we instantiate a `CommandBot` instead of a regular `Bot`, which has the functionality to add commands using the
-# `command` method. We have to set a `prefix` here, which will be the character that triggers command execution.
-bot = Discordrb::Commands::CommandBot.new token: bot_token, prefix: '~'
+bot = Discordrb::Commands::CommandBot.new token: bot_token, prefix: '~', help_command: true
 
 bot.command(:hots, hots: 1) do |event, hots|
   icy_base = 'https://www.icy-veins.com/heroes'
@@ -29,24 +28,42 @@ bot.command(:hots, hots: 1) do |event, hots|
     hero_picture = 'http:' + doc.css('div.page_content div.float_left img').attr('src').text
     talent_table = doc.css('table.talent_table')
 
-    # get table rows
-    rows = []
+    # get data from website
+    build = []
     talent_table.css('tr').each do |row|
       level = row.css('td.talent_unlock').text
       talent = []
-      row.css('span.talent_container').each do |talent_container|
+      row.css('td.talent_list').each do |talent_container|
         ### When discordrb will suport multiple embed images replace marker by images
-        talent << talent_container.css('img').map { |node| node.attr('alt') + ' : ' + talent_container.css('span.talent_marker').text }
+        talent_container.css('span.talent_container').map do |node|
+          talent << node.css('img').attr('alt').text + ' : ' + node.css('span.talent_marker').text
+          # talent << 'http:' + node.css('img').attr('src').text.gsub("large","small")
+        end
       end
-      rows << [
+      build << [
         level,
         talent
       ]
     end
 
-    # puts rows
+    # pp build
 
-    ### Resonse
+    # build.each do |talent_array|
+    #   talent_array.each do |_talent_detail|
+    #     if  _talent_detail != ''
+    #       if _talent_detail.class != Array
+    #         event << "__**Level #{_talent_detail} :**__"
+    #       else
+    #         _talent_detail.each do |talent|
+    #           event << talent
+    #         end
+    #         event << ''
+    #       end
+    #     end
+    #   end
+    # end
+
+    # build the response
     event.channel.send_embed do |embed|
       embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: 'KooPa')
       embed.title = 'Hi ' + event.user.name + ' here is your build for ' + hots.upcase + ' have fun :'
@@ -62,13 +79,6 @@ bot.command(:hots, hots: 1) do |event, hots|
         value: icy_talents,
         inline: false
       )
-      # rows.each do |row|
-      #   embed.add_field(
-      #     name: ' ',
-      #     value: row,
-      #     inline: true
-      #   )
-      # end
     end
 
   else
@@ -105,14 +115,6 @@ end
 bot.command(:kick) do |event|
   channel = event.user.voice_channel
   bot.voice_destroy(channel) if channel
-end
-
-bot.command(:help) do |event|
-  event.user.pm(
-    'Yes my Lord, here is how I can help you :
-    **~hots** : with one or zero argument, you can indicate a hero to get his build from icy-veins
-    **~rick** : WIP you can rickroll your friend in a voice channel'
-  )
 end
 
 bot.run
