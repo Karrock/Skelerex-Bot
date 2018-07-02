@@ -6,12 +6,14 @@ require 'discordrb'
 require 'open-uri'
 require 'dotenv'
 require 'nokogiri'
-require 'rubocop'
 require 'pp'
 
 # instantiate the token in .env file
 Dotenv.load
 bot_token = ENV['bot_token']
+
+require_relative 'lib/hots_parser'
+require_relative 'lib/icy_urls'
 
 # Here we instantiate a `CommandBot` instead of a regular `Bot`, which has the functionality to add commands using the
 bot = Discordrb::Commands::CommandBot.new token: bot_token, prefix: '~', help_command: true
@@ -21,47 +23,25 @@ bot.command(:hots, hots: 1) do |event, hots|
 
   if hots
     hots = hots.downcase
-    icy_guide = icy_base + "/#{hots}-build-guide"
-    icy_talents = icy_base + "/#{hots}-talents"
 
-    doc = Nokogiri::HTML(open(icy_talents))
-    hero_picture = 'http:' + doc.css('div.page_content div.float_left img').attr('src').text
-    talent_table = doc.css('table.talent_table')
+    # hero_picture = 'http:' + doc.css('div.page_content div.float_left img').attr('src').text
 
-    # get data from website
-    build = []
-    talent_table.css('tr').each do |row|
-      level = row.css('td.talent_unlock').text
-      talent = []
-      row.css('td.talent_list').each do |talent_container|
-        ### When discordrb will suport multiple embed images replace marker by images
-        talent_container.css('span.talent_container').map do |node|
-          talent << node.css('img').attr('alt').text + ' : ' + node.css('span.talent_marker').text
-          # talent << 'http:' + node.css('img').attr('src').text.gsub("large","small")
+    build = HotsParser.new.parse(hots)
+
+    build.each do |talent_array|
+      talent_array.each do |_talent_detail|
+        if  _talent_detail != ''
+          if _talent_detail.class != Array
+            event << "__**Level #{_talent_detail} :**__"
+          else
+            _talent_detail.each do |talent|
+              event << talent
+            end
+            event << ''
+          end
         end
       end
-      build << [
-        level,
-        talent
-      ]
     end
-
-    # pp build
-
-    # build.each do |talent_array|
-    #   talent_array.each do |_talent_detail|
-    #     if  _talent_detail != ''
-    #       if _talent_detail.class != Array
-    #         event << "__**Level #{_talent_detail} :**__"
-    #       else
-    #         _talent_detail.each do |talent|
-    #           event << talent
-    #         end
-    #         event << ''
-    #       end
-    #     end
-    #   end
-    # end
 
     # build the response
     event.channel.send_embed do |embed|
