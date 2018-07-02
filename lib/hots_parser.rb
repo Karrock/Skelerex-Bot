@@ -18,7 +18,6 @@ class HotsParser
     doc = Nokogiri::HTML(open(url.talents_url(hero)))
     talent_table = doc.css('table.talent_table')
 
-    # get data from website
     build = []
     talent_table.css('tr').each do |row|
       level = row.css('td.talent_unlock').text
@@ -32,9 +31,19 @@ class HotsParser
           ].join(' : ')
         end
       end
-      build.push(level,talent)
+      build << [
+        level,
+        talent
+      ]
     end
 
     build
+  end
+
+  # @param [String] hero
+  # @return [String]
+  def getHeroPicture(hero)
+    doc = Nokogiri::HTML(open(url.talents_url(hero)))
+    'http:' + doc.css('div.page_content div.float_left img').attr('src').text
   end
 end
