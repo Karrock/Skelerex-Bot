@@ -15,6 +15,7 @@ class HotsParser
     hero = hero.to_s
     return nil if hero.empty?
 
+    begin
     doc = Nokogiri::HTML(open(url.talents_url(hero)))
     talent_table = doc.css('table.talent_table')
 
@@ -33,13 +34,12 @@ class HotsParser
           ].join(' : ')
         end
       end
-      build << [
-        level,
-        talent
-      ]
+      build << [level, talent]
     end
-
     build
+    rescue OpenURI::HTTPError
+      "Crap it seems that the hero you mention (#{hero}) is unknown please try again."
+    end
   end
 
   # @param [String] hero
