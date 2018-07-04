@@ -37,22 +37,20 @@ bot.command(:hots, hots: 1) do |event, hots|
   else
     hots = hots.downcase
 
-    # build = HotsParser.new.parse(hots)
+    build = HotsParser.new.parse(hots)
 
     # build.each do |talent_array|
     #   talent_array.each do |talent_detail|
-    #     if talent_detail != ''
-    #       if talent_detail.class != Array
-    #         "embed.add_field(name: __**Level #{talent_detail} :**__,"
-    #       else if talent_detail.any?
-    #              talent_detail.each do |talent|
-    #                "value: #{talent},"
-    #              end
-    #              'inline: true)'
-    #            end
+    #     if talent_detail.class != Array
+    #       event << "__**Level #{talent_detail} :**__"
+    #     else
+    #       talent_detail.each do |talent|
+    #         event << talent
     #       end
+    #       event << ''
     #     end
     #   end
+    # end
 
     # build the response
     event.channel.send_embed do |embed|
@@ -67,9 +65,16 @@ bot.command(:hots, hots: 1) do |event, hots|
 
       embed.add_field(
         name: 'And here is the talents page :',
-        value: IcyUrls.new.build_url(hots),
+        value: IcyUrls.new.talents_url(hots),
         inline: false
       )
+      build.each do |talent_array|
+        embed.add_field(
+          name: "__**Level #{talent_array[0]} :**__",
+          value: talent_array[1].join("\n"),
+          inline: true
+        )
+      end
     end
   end
 end

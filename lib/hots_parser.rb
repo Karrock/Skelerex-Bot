@@ -19,13 +19,15 @@ class HotsParser
     talent_table = doc.css('table.talent_table')
 
     build = []
-    talent_table.css('tr').each do |row|
+    # Select all tr element except the one used for thead
+    talent_table.css('tr:not(.talent_table_header_row)').each do |row|
       level = row.css('td.talent_unlock').text
       talent = []
       row.css('td.talent_list').each do |talent_container|
-        ### When discordrb will suport multiple embed images replace marker by images
+        ## TODO:  When discordrb will suport multiple embed images replace marker by images
         talent_container.css('span.talent_container').map do |node|
           talent << [
+            # Replace emoji to have a better display in discord
             node.css('span.talent_marker').text.gsub(/[✔✘?]/, '✔' => '☑️', '✘' => '🚫', '?' => '❓'),
             node.css('img').attr('alt').text
           ].join(' : ')
