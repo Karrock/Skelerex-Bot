@@ -34,29 +34,23 @@ bot.command(:hots, hots: 1) do |event, hots|
         inline: false
       )
     end
-  elsif HotsParser.new.parse(hots) != Array
-    event.channel.send_embed do |embed|
-      embed.author = Discordrb::Webhooks::EmbedAuthor.new(name: 'KooPa')
-      embed.title = 'Hi ' + event.user.name
-      embed.description = HotsParser.new.parse(hots)
-      embed.colour = 0x97d352
-      embed.timestamp = Time.new
-      embed.thumbnail = Discordrb::Webhooks::EmbedThumbnail.new(url: IcyUrls.new.logo_url)
-      embed.footer = Discordrb::Webhooks::EmbedFooter.new(text: 'Prowdly powered in ruby')
-      embed.add_field(
-        name: 'Here is base url of the website.',
-        value: IcyUrls.new.to_s,
-        inline: false
-      )
-      embed.add_field(
-        name: 'Keep in mind the rules for this bot',
-        value: 'The hero name must be from the game Hots, lower or uppercase but without accent - or \''
-      )
-    end
   else
     hots = hots.downcase
 
     build = HotsParser.new.parse(hots)
+
+    # build.each do |talent_array|
+    #   talent_array.each do |talent_detail|
+    #     if talent_detail.class != Array
+    #       event << "__**Level #{talent_detail} :**__"
+    #     else
+    #       talent_detail.each do |talent|
+    #         event << talent
+    #       end
+    #       event << ''
+    #     end
+    #   end
+    # end
 
     # build the response
     event.channel.send_embed do |embed|
