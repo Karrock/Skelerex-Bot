@@ -16,3 +16,6 @@ Tutorial for discord bot : https://medium.com/@goodatsports/how-to-make-a-simple
 - You will need some gems to properly use this bot for this juste install bundler and use it.
 - To use Nokogiri it is necessary to run this command :
 `sudo apt-get install libxml2 libxml2-dev libxslt libxslt-dev`
+
+## TODO
+- Check why the bot isn't working when Hero is given.
