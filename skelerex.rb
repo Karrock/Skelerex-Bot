@@ -7,6 +7,7 @@ require 'open-uri'
 require 'dotenv'
 require 'nokogiri'
 require 'pp'
+require 'mechanize'
 
 # instantiate the token in .env file
 Dotenv.load
@@ -38,19 +39,6 @@ bot.command(:hots, hots: 1) do |event, hots|
     hots = hots.downcase
 
     build = HotsParser.new.parse(hots)
-
-    # build.each do |talent_array|
-    #   talent_array.each do |talent_detail|
-    #     if talent_detail.class != Array
-    #       event << "__**Level #{talent_detail} :**__"
-    #     else
-    #       talent_detail.each do |talent|
-    #         event << talent
-    #       end
-    #       event << ''
-    #     end
-    #   end
-    # end
 
     # build the response
     event.channel.send_embed do |embed|
