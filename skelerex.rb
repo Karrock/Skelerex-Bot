@@ -93,7 +93,7 @@ bot.command(:rick) do |event|
 end
 
 
-bot.command :dick do |event|
+bot.command(:dick) do |event|
   agent = Mechanize.new
   link = 'https://source.unsplash.com/random/featured/?Dick'
   agent.get(link).save "pic.png" 
@@ -103,7 +103,7 @@ bot.command :dick do |event|
   event File.delete("pic.png")
 end
 
-bot.command :food do |event|
+bot.command(:food) do |event|
   agent = Mechanize.new
   link = 'https://source.unsplash.com/random/featured/?Food,Plate'
   agent.get(link).save "pic.png" 
