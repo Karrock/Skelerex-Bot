@@ -84,19 +84,19 @@ end
 bot.command(:dick) do |event|
   agent = Mechanize.new
   link = 'https://source.unsplash.com/random/featured/?Dick,Penis'
-  agent.get(link).save "pic.png" 
-  event.send_file(File.open('pic.png', 'r'), caption: "Hey mais range moi ça " + event.user.name + "!" )
+  agent.get(link).save "sources/unsplash/pic.png" 
+  event.send_file(File.open('sources/unsplash/pic.png', 'r'), caption: "Hey mais range moi ça " + event.user.name + "!" )
   sleep(5)
-  event File.delete("pic.png")
+  event File.delete("sources/unsplash/pic.png")
 end
 
 bot.command(:food) do |event|
   agent = Mechanize.new
   link = 'https://source.unsplash.com/random/featured/?Food,Meal'
-  agent.get(link).save "pic.png" 
-  event.send_file(File.open('pic.png', 'r'), caption: "Voiçi votre repas " + event.user.name + ".")
+  agent.get(link).save "sources/unsplash/pic.png" 
+  event.send_file(File.open('sources/unsplash/pic.png', 'r'), caption: "Voiçi votre repas " + event.user.name + ".")
   sleep(5)
-  event File.delete("pic.png")
+  event File.delete("sources/unsplash/pic.png")
 end
 
 bot.command(:kick) do |event|
