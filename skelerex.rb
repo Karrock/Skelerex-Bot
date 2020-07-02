@@ -90,6 +90,15 @@ bot.command(:dick) do |event|
   event File.delete("sources/unsplash/pic.png")
 end
 
+bot.command(:otter) do |event|
+  agent = Mechanize.new
+  link = 'https://source.unsplash.com/random/featured/?Otter'
+  agent.get(link).save "sources/unsplash/pic.png" 
+  event.send_file(File.open('sources/unsplash/pic.png', 'r'), caption: "Yeuh, comme elle est mignonne, tu trouves pas " + event.user.name + "?" )
+  sleep(5)
+  event File.delete("sources/unsplash/pic.png")
+end
+
 bot.command(:food) do |event|
   agent = Mechanize.new
   link = 'https://source.unsplash.com/random/featured/?Food,Meal'
