@@ -8,7 +8,6 @@ require 'dotenv'
 require 'nokogiri'
 require 'pp'
 require 'mechanize'
-require 'rubocop-rails'
 
 # instantiate the token in .env file
 Dotenv.load
@@ -81,32 +80,32 @@ bot.command(:rick) do |event|
   bot.voice_destroy(channel)
 end
 
-# TODO create switch case instead of multiple commands
+
 bot.command(:dick) do |event|
   agent = Mechanize.new
   link = 'https://source.unsplash.com/random/featured/?Dick,Penis'
   agent.get(link).save "sources/unsplash/pic_dick.png" 
-  event.send_file(File.open('sources/unsplash/pic_dick.png', 'r'), caption: "Hey mais range moi ça @" + event.user.name + "!" )
+  event.send_file(File.open('sources/unsplash/pic.png', 'r'), caption: "Hey mais range moi ça " + event.user.name + "!" )
   sleep(5)
-  event File.delete("sources/unsplash/pic_dick.png")
+  event File.delete("sources/unsplash/pic.png")
 end
 
-bot.command(:loutres) do |event|
+bot.command(:otter) do |event|
   agent = Mechanize.new
   link = 'https://source.unsplash.com/random/featured/?Otter'
   agent.get(link).save "sources/unsplash/pic_otter.png" 
-  event.send_file(File.open('sources/unsplash/pic_otter.png', 'r'), caption: "LOUTRES QUEL EST VOTRE METIER ?!" )
+  event.send_file(File.open('sources/unsplash/pic.png', 'r'), caption: "LOUTRES QUEL EST VOTRE METIER ?!" )
   sleep(5)
-  event File.delete("sources/unsplash/pic_otter.png")
+  event File.delete("sources/unsplash/pic.png")
 end
 
 bot.command(:food) do |event|
   agent = Mechanize.new
   link = 'https://source.unsplash.com/random/featured/?Food,Meal'
-  agent.get(link).save "sources/unsplash/pic_dick.png" 
-  event.send_file(File.open('sources/unsplash/pic_dick.png', 'r'), caption: "Voiçi votre repas @" + event.user.name + ".")
+  agent.get(link).save "sources/unsplash/pic_food.png" 
+  event.send_file(File.open('sources/unsplash/pic.png', 'r'), caption: "Voiçi votre repas " + event.user.name + ".")
   sleep(5)
-  event File.delete("sources/unsplash/pic_dick.png")
+  event File.delete("sources/unsplash/pic.png")
 end
 
 bot.command(:kick) do |event|
