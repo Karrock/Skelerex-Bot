@@ -85,27 +85,27 @@ bot.command(:dick) do |event|
   agent = Mechanize.new
   link = 'https://source.unsplash.com/random/featured/?Dick,Penis'
   agent.get(link).save "sources/unsplash/pic_dick.png" 
-  event.send_file(File.open('sources/unsplash/pic.png', 'r'), caption: "Hey mais range moi ça " + event.user.name + "!" )
+  event.send_file(File.open('sources/unsplash/pic_dick.png', 'r'), caption: "Hey mais range moi ça " + event.user.name + "!" )
   sleep(5)
-  event File.delete("sources/unsplash/pic.png")
+  event File.delete("sources/unsplash/pic_dick.png")
 end
 
-bot.command(:otter) do |event|
+bot.command(:loutres) do |event|
   agent = Mechanize.new
   link = 'https://source.unsplash.com/random/featured/?Otter'
   agent.get(link).save "sources/unsplash/pic_otter.png" 
-  event.send_file(File.open('sources/unsplash/pic.png', 'r'), caption: "LOUTRES QUEL EST VOTRE METIER ?!" )
+  event.send_file(File.open('sources/unsplash/pic_otter.png', 'r'), caption: "LOUTRES QUEL EST VOTRE METIER ?!" )
   sleep(5)
-  event File.delete("sources/unsplash/pic.png")
+  event File.delete("sources/unsplash/pic_otter.png")
 end
 
 bot.command(:food) do |event|
   agent = Mechanize.new
   link = 'https://source.unsplash.com/random/featured/?Food,Meal'
   agent.get(link).save "sources/unsplash/pic_food.png" 
-  event.send_file(File.open('sources/unsplash/pic.png', 'r'), caption: "Voiçi votre repas " + event.user.name + ".")
+  event.send_file(File.open('sources/unsplash/pic_food.png', 'r'), caption: "Voiçi votre repas " + event.user.name + ".")
   sleep(5)
-  event File.delete("sources/unsplash/pic.png")
+  event File.delete("sources/unsplash/pic_food.png")
 end
 
 bot.command(:kick) do |event|
