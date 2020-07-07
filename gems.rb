@@ -12,6 +12,7 @@ gem 'dotenv'
 gem 'reverse_markdown'
 gem 'rubocop'
 gem 'mechanize'
+gem 'rubocop-rails'
 
 # Specify your gem's dependencies in discordrb.gemspec
 # gemspec name: 'discordrb'
