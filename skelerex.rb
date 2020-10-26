@@ -8,6 +8,7 @@ require 'dotenv'
 require 'nokogiri'
 require 'pp'
 require 'mechanize'
+require 'httparty'
 
 # instantiate the token in .env file
 Dotenv.load
@@ -106,6 +107,13 @@ bot.command(:food) do |event|
   event.send_file(File.open('sources/unsplash/pic_food.png', 'r'), caption: "Voiçi votre repas " + event.user.name + ".")
   sleep(5)
   event File.delete("sources/unsplash/pic_food.png")
+end
+
+bot.command(:mc) do |event|
+  agent = Mechanize.new
+  url = 'https://panel.omgserv.com/json/304624/status'
+  response = HTTParty.get(url)
+  event.respond response.parsed_response
 end
 
 bot.command(:kick) do |event|
