@@ -18,7 +18,7 @@ require_relative 'lib/hots_parser'
 require_relative 'lib/icy_urls'
 
 # Here we instantiate a `CommandBot` instead of a regular `Bot`, which has the functionality to add commands using the
-bot = Discordrb::Commands::CommandBot.new token: bot_token, prefix: '~', help_command: true
+bot = Discordrb::Commands::CommandBot.new token: bot_token, prefix: '?', help_command: true
 
 bot.command(:hots, hots: 1) do |event, hots|
   if !hots
