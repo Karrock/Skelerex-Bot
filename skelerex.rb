@@ -104,7 +104,7 @@ bot.command(:zombie) do |event|
   agent = Mechanize.new
   link = 'https://source.unsplash.com/random/featured/?Zombie'
   agent.get(link).save "sources/unsplash/pic_otter.png"
-  event.send_file(File.open('sources/unsplash/pic_otter.png', 'r'), caption: "AH PLANQUES TON CERVEAU " + event.user.name + "!"  )
+  event.send_file(File.open('sources/unsplash/pic_otter.png', 'r'), caption: "AH PLANQUES TON CERVEAU @" + event.user.name + "!"  )
   sleep(5)
   event File.delete("sources/unsplash/pic_otter.png")
 end
@@ -116,15 +116,6 @@ bot.command(:food) do |event|
   event.send_file(File.open('sources/unsplash/pic_food.png', 'r'), caption: "Voiçi votre repas " + event.user.name + ".")
   sleep(5)
   event File.delete("sources/unsplash/pic_food.png")
-end
-
-bot.command(:pic, pic: 1 ) do |event|
-  agent = Mechanize.new
-  link = 'https://source.unsplash.com/random/featured/?' + pic
-  agent.get(link).save "sources/unsplash/pic_" + pic + ".png"
-  event.send_file(File.open('sources/unsplash/pic_' + pic +'.png', 'r'), caption: "Voiçi votre repas " + event.user.name + ".")
-  sleep(5)
-  event File.delete("sources/unsplash/pic_" + pic + ".png")
 end
 
 bot.command(:mc) do |event|
