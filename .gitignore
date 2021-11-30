@@ -1,6 +1,1 @@
-.idea/
-.bundle/
-vendor/
-.env
-
-test\.rb
+﻿*.env
