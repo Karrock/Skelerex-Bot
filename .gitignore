@@ -225,4 +225,5 @@ project.lock.json
 #####
 
 # Only for current project
-*.env
+config.json
+obj
